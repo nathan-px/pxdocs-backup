@@ -51,7 +51,7 @@ PX-Backup can be installed on any Kubernetes cluster using Helm charts as long a
 
 2. Install PX-Backup using either the `helm set` command or the `values.yml` file provided in the output of the **Complete** tab of the spec generator.
 
-    You can find more information about the PX-Backup Helm chart in the [reference article](/Reference/install-helm-chart).
+    You can find more information about the PX-Backup Helm chart in the [reference article](/reference/install-helm-chart/).
 
 ## Configure external OIDC endpoints
 
