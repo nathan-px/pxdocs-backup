@@ -9,6 +9,10 @@ scrollspy-container: false
 type: common-landing
 ---
 
+Depending on which version of PX-Backup you're running, the upgrade method you use will differ. Prior to version 1.0.2, PX-Backup used operator-based installs; versions 1.0.2 and newer use Helm-based installs. Perform the upgrade procedures appropriate for your version.
+
+## Upgrade PX-Backup from an operator-based install
+
 To upgrade PX-Backup from an operator-based install to the Helm-based install introduced with 1.0.2, you must download, modify, and apply the following specs:
 
 ## Prerequisites
@@ -104,3 +108,29 @@ To upgrade PX-Backup from an operator-based install to the Helm-based install in
     {{<info>}}
 **NOTE:** In the Helm install command above, mention the same organization name which was used in previous operator based install.
     {{</info>}}
+
+## Upgrade PX-Backup using Helm
+
+Once you've moved from an operator-based install to a Helm-based install, you can upgrade using Helm.
+
+### Prerequisites
+
+* You must have PX-Backup with a Helm-based install
+
+1. Update your Helm repos:
+
+    ```text
+    helm repo update
+    ```
+
+2. Delete all of the stateful sets:
+
+    ```text
+    kubectl delete sts --namespace <namespace> pxc-backup-etcd pxcentral-keycloak pxcentral-keycloak-postgresql
+    ```
+
+3. Run helm upgrade command:
+
+    ```text
+    helm upgrade px-backup portworx/px-backup --namespace <namespace>
+    ```
