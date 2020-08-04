@@ -17,36 +17,40 @@ By default, the PX-Backup UI is configured <!-- need description of the current 
 
 You can configure access to PX-Backup through HTTPS by creating an ingress rule.
 
-1. Create the following spec, entering your own secret and hosts based on your cluster's configuration:<!-- What do they need to enter here? I assume `test`, but what else? maybe this value? px-backup-ui.test-1.us-east.containers.appdomain.cloud . I think this is also an unnecessarily compounded command piping the spec through cat creates the spec upon pasting -- which makes step 2 irrelevant -->
+1. Modify and paste the following spec into your one of your PX-Backup nodes, entering your own values for the following:
 
-        cat <<< ' 
-        apiVersion: extensions/v1beta1
-        kind: Ingress
-        metadata:
-        annotations:
-            ingress.bluemix.net/redirect-to-https: "True"
-            kubernetes.io/ingress.class: nginx
-            nginx.ingress.kubernetes.io/x-forwarded-port: "443"
-        name: px-backup-ui-ingress
-        namespace: px-backup
-        spec:
-        rules:
-        - host: px-backup-ui.test-1.us-east.containers.appdomain.cloud
-            http:
-            paths:
-            - backend:
-                serviceName: px-backup-ui
-                servicePort: 80
-                path: /
-            - backend:
-                serviceName: pxcentral-keycloak-http
-                servicePort: 80
-                path: /auth
-        tls:
-        - hosts:
-            - px-backup-ui.test-1.us-east.containers.appdomain.cloud
-            secretName: <your-secret>
-        ' > /tmp/px-backup-ui-ingress.yaml
+    * **spec.rules.host:** specify the name of the host on which you've installed PX-Backup
+    * **spec.tls.hosts** specify the name of the host on which you've installed PX-Backup
+    * **spec.tls.hosts.secretName:** specify the name of the secret that holds your Kubernetes TLS certificates
+
+            cat <<< ' 
+            apiVersion: extensions/v1beta1
+            kind: Ingress
+            metadata:
+            annotations:
+                ingress.bluemix.net/redirect-to-https: "True"
+                kubernetes.io/ingress.class: nginx
+                nginx.ingress.kubernetes.io/x-forwarded-port: "443"
+            name: px-backup-ui-ingress
+            namespace: px-backup
+            spec:
+            rules:
+            - host: <px-backup-host>
+                http:
+                paths:
+                - backend:
+                    serviceName: px-backup-ui
+                    servicePort: 80
+                    path: /
+                - backend:
+                    serviceName: pxcentral-keycloak-http
+                    servicePort: 80
+                    path: /auth
+            tls:
+            - hosts:
+                - <px-backup-host>
+                secretName: <TLS-backup-secret>
+            ' > /tmp/px-backup-ui-ingress.yaml
 
     {{<info>}}
 **NOTE:** The `secretName` field is only required when you want to terminate TLS on the host/domain. Refer to your cloud provider for specific examples:
