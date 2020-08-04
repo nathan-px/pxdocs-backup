@@ -1,6 +1,6 @@
 ---
 title: Uninstall PX-Backup
-description: Upgrade your version of PX-Backup
+description: Uninstall PX-Backup
 keywords: upgrade,
 weight: 11
 hidesections: true
