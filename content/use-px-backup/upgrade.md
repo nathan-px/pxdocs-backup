@@ -29,7 +29,7 @@ Follow the steps in this section to upgrade PX-Backup using Helm.
     helm repo update
     ```
 
-2. Retrieve all custom values you used during install. Enter the following `helm get values` command, adjusting the values of the `<namespace>` and `<release-name>` parameters to match your environment:
+2. Retrieve all custom values you used during install. Enter the following `helm get values` command to generate a YAML file, adjusting the values of the `<namespace>` and `<release-name>` parameters to match your environment:
 
     ```text
     helm get values --namespace <docs-namespace> <release-name> -o yaml > values.yaml
