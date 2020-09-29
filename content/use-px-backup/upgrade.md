@@ -36,18 +36,23 @@ Follow the steps in this section to upgrade PX-Backup using Helm.
     ```
 
     ```
-    USER-SUPPLIED VALUES:
+    oidc:
+        centralOIDC:
+            defaultPassword: examplePassword
+            defaultUsername: exampleUser
+    operatorToChartUpgrade: true
     persistentStorage:
-      enabled: true
-      storageClassName: px-sc
+        enabled: true
+        storageClassName: px-sc
     pxbackup:
-      orgName: my-organization
+        orgName: exampleOrg
+    pxcentralDBPassword: exampleDbPassword
     ```
 
     Note the following about this example output:
 
-    * The `persistentStorage.storageClassName` field displays the name of your storage class (`px-sc`)
-    * The `persistentStorage` flag indicates that persistent storage is enabled
+    * The `persistentStorage.storageClassName` field displays the name of your storage class (`px-sc`).
+    * The `persistentStorage.enabled: true` field indicates that persistent storage is enabled.
     * The `pxbackup.orgName` field displays the name of your organization (`my-organization`)
 
 
