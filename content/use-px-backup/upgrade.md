@@ -32,7 +32,7 @@ Follow the steps in this section to upgrade PX-Backup using Helm.
 2. Retrieve all custom values you used during install. Enter the following `helm get values` command, adjusting the values of the `<namespace>` and `<release-name>` parameters to match your environment:
 
     ```text
-    helm get values -n <docs-namespace> <release-name>
+    helm get values --namespace <docs-namespace> <release-name> -o yaml > values.yaml
     ```
 
     ```
@@ -64,13 +64,13 @@ Follow the steps in this section to upgrade PX-Backup using Helm.
 4. Delete the post install hook job:
 
     ```text
-    kubectl delete job pxcentral-post-install-hook -n <namespace>
+    kubectl delete job pxcentral-post-install-hook --namespace <namespace>
     ```
 
-5. Run the `helm upgrade` command, using the `--set` flag to pass all custom values you've used during install. The following example command enables persistent storage, sets the value of the `persistentStorage.storageClassName` parameter to `px-sc`, and sets the value of the `orgName` parameter to `my-organization`:
+5. Run the `helm upgrade` command, using the `-f` flag to pass the custom `values.yaml` file you generated above:
 
     ```text
-    helm upgrade px-backup portworx/px-backup --namespace <namespace> --set persistentStorage.enabled=true,persistentStorage.storageClassName=px-sc,pxbackup.orgName=my-organization
+    helm upgrade px-backup portworx/px-backup --namespace -f values.yaml
     ```
 
 ## Upgrade PX-Backup from an operator-based install
