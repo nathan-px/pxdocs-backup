@@ -11,7 +11,11 @@ type: common-landing
 
 If the standard PX-Backup UI endpoint configuration doesn't meet your requirements, you can configure access using HTTPS, access it through the load balancer, or even navigate to one of your node IPs directly. 
 
-## Expose the PX-Backup UI on ingress and configure access using HTTPS
+##  Expose the PX-Backup UI on ingress and configure access using HTTPS
+
+You can configure access to PX-Backup through HTTPS by configuring your Kubernetes or OCP ingress. Follow the steps below applicable for your environment:
+
+### Configure ingress on Kubernetes
 
 You can configure access to PX-Backup through HTTPS by creating an ingress rule.
 
@@ -80,6 +84,10 @@ Additionally, you can access the Keycloak UI at the `/auth` path:
 ```
 https://INGRESS_ENDPOINT/auth
 ```
+
+
+### Configure ingress on OpenShift
+
 
 
 ## Access the PX-Backup UI using a node IP:
