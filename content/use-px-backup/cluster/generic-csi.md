@@ -1,30 +1,18 @@
 ---
 title: Kubernetes clusters using generic CSI drivers
-linkTitle: Kubernetes with generic CSI drivers
+linkTitle: Clusters with generic CSI Drivers
 description: 
 keywords:
-weight: 4
+weight: 5
 disableprevnext: true
 # scrollspy-container: false
 ---
 
-<!-- 
-
-This is still kubernetes, but using a different storage driver, right? Is it more correct to say that we're talking about Kubernetes clusters with Generic CSI drivers?
-
--->
-
-PX-Backup supports backup and restore on kubernetes clusters with generic CSI drivers if the driver meets certain prerequisites. 
+PX-Backup supports backup and restore on Kubernetes clusters with generic CSI drivers if the driver meets certain prerequisites. 
 
 {{<info>}}
-**NOTE:** Portworx features native CSI driver support for cloud providers with their own native CSI driver support, such as AKS, EKS, and GKE. You do not need to follow these instructions to use CSI features on those clusters with PX-Backup. 
+**NOTE:** Portworx features native CSI driver support for cloud providers with their own native CSI driver support, such as AKS, EKS, and GKE. You do not need to follow these instructions to use PX-Backup on those clusters. Instead, see the page for your respective cloud provider.
 {{</info>}}
-
-<!-- 
-
-Not sure I understand what this note is saying. Are you saying that you don't need to follow these instructions for CSI support on one of the cloud clusters we list in this section, because both the providers and Portworx feature native CSI support?
-
--->
 
 ## Prerequisites
 
@@ -36,8 +24,8 @@ Kubernetes prerequisites:
 The generic CSI driver should implement the following:
   
 * The CSI driver must include the [CSI snapshots and restores](https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html) feature.
-* The CSI Driver must have the `snapshotter-sidecar` running at version 2.0 or greater.
-* THe CSI Driver must have the `external-snapshotter` running at version 2.0 or greater.
+* The CSI driver must have the `snapshotter-sidecar` running at version 2.0 or greater.
+* The CSI driver must have the `external-snapshotter` running at version 2.0 or greater.
 * Ideally, the CSI driver should implement `ListSnapshots` for indicating that the snapshot is ready to use on the storage backend.
 * For cross-cluster restores, the CSI drivers for both clusters will need to be connected to the same storage backend. In particular, the `snapshotHandle` used on the source cluster must be visible on the destination cluster via CSI `ListSnapshots`.
 
@@ -45,7 +33,6 @@ Portworx has tested and recommends the following CSI drivers for use with your K
 
 * Pure Storage PSO CSI Driver
 * Openshift OCS RBD CSI Driver
-* DigitalOcean CSI Driver
 
 ## Add the cluster to PX-Backup
 
@@ -62,9 +49,3 @@ Portworx has tested and recommends the following CSI drivers for use with your K
     ![Enter the cluster details](/img/enter-other-kubernetes-distributions-cluster-details.png)
 
 3. Select the **Submit** button
-
-<!-- 
-
-    I used the cluster add steps from the on-prem guide, do those work?  
-
--->
